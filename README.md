@@ -1,5 +1,5 @@
 ## Spot The Difference for MS
-
+![mage](https://i.imgur.com/Z4RhMHZ.png)
 ### Prerequisites
 - OpenCV2
 - numpy
