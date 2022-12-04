@@ -5,6 +5,10 @@
 - numpy
 - Python 3+ 64 Bits
 
+``` 
+pip install opencv-python
+```
+
 ### Instructions
 - Set your maplestory to windowed mode
 - 1366 x 768 Resolution
