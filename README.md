@@ -18,6 +18,7 @@ pip install pywin32
 - Set your maplestory to windowed mode
 - 1366 x 768 Resolution
 - External Chat window does not matter
+- To exit, press Q when focused on any of the opencv windows
 
 ### References
 - Adapted for colored image diff + video capture and diff using the same video output.
