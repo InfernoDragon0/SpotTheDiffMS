@@ -5,12 +5,13 @@
 - numpy
 - Python 3+ 64 Bits
 - imutils
-- py win32
+- pywin32
 
 ``` 
 pip install opencv-python
 pip install imutils
 pip install numpy
+pip install pywin32
 ```
 
 ### Instructions
