@@ -1,3 +1,4 @@
+import time
 import win32gui
 import win32ui
 import win32con
@@ -12,11 +13,11 @@ h = 768
 mouseX,mouseY = 0,0
 
 #set the start and end location of each image in game
-image1Xstart,image1Ystart = 232,125
-image1Xend,image1Yend = 684,576
+image1Xstart,image1Ystart = 233,126
+image1Xend,image1Yend = 682,575
 
-image2Xstart,image2Ystart = 690,125
-image2Xend,image2Yend = 1142,576
+image2Xstart,image2Ystart = 691,126
+image2Xend,image2Yend = 1140,575
 
 #debug to get the X Y axis
 def draw_circle(event,x,y,flags,param):
@@ -53,12 +54,12 @@ cDC=dcObj.CreateCompatibleDC()
 dataBitMap = win32ui.CreateBitmap()
 dataBitMap.CreateCompatibleBitmap(dcObj, w, h)
 cDC.SelectObject(dataBitMap)
-cv2.namedWindow('image')
-cv2.setMouseCallback('image',draw_circle)
+# cv2.namedWindow('image')
+# cv2.setMouseCallback('image',draw_circle)
 
 while True:
     #get the image from the window
-    
+    time.sleep(0.066)
     cDC.BitBlt((0,0),(w, h) , dcObj, (0,0), win32con.SRCCOPY)
 
     #make CV image
@@ -75,17 +76,17 @@ while True:
     datashowCropped = datashow[image1Ystart:image1Yend, image1Xstart:image1Xend]
     #do an abs difference
     diff = cv2.absdiff(image1, image2)
-    cv2.imshow("diff(img1, img2)", diff)
+    #cv2.imshow("diff(img1, img2)", diff)
     diff = cv2.cvtColor(diff, cv2.COLOR_RGBA2GRAY) #uncolor the difference
 
     #threshold the difference
-    thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    # thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_OTSU)[1]
     # cv2.imshow("Threshold", thresh)
 
     #dilate the threshold
     kernel = numpy.ones((5,5), numpy.uint8) 
-    dilate = cv2.dilate(thresh, kernel, iterations=2) 
-    # cv2.imshow("Dilate", dilate)
+    dilate = cv2.dilate(diff, kernel, iterations=2) 
+    cv2.imshow("Dilate", dilate)
 
     contours = cv2.findContours(dilate.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = imutils.grab_contours(contours)
@@ -97,15 +98,15 @@ while True:
             cv2.rectangle(datashowCropped, (xx, yy), (xx+ww, yy+hh), (0,255,255), 3)
             # cv2.rectangle(datashowCropped, (xx, yy), (xx+ww, yy+hh), (0,0,255), 2)
     #do comparison
-    cv2.rectangle(datashow,(image1Xstart,image1Ystart),(image1Xend,image1Yend),(0,255,0),2)
+    #cv2.rectangle(datashow,(image1Xstart,image1Ystart),(image1Xend,image1Yend),(0,255,0),2)
 
     #red rectangle
-    cv2.rectangle(datashow,(image2Xstart,image2Ystart),(image2Xend,image2Yend),(0,0,255),2)
+    #cv2.rectangle(datashow,(image2Xstart,image2Ystart),(image2Xend,image2Yend),(0,0,255),2)
 
     #show results
     # cv2.imshow("left", image1)
     # cv2.imshow("right", image2)
-    cv2.imshow("image", datashow)
+    # cv2.imshow("image", datashow)
     cv2.imshow("final", datashowCropped)
 
     #end when Q is pressed
