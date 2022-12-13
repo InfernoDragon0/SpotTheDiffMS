@@ -19,6 +19,7 @@ pip install pywin32
 - 1366 x 768 Resolution
 - External Chat window does not matter
 - To exit, press Q when focused on any of the opencv windows
+- You can additionally change `TargetFPS` to the desired frame rate for the app, minimum 1.
 
 ### References
 - Adapted for colored image diff + video capture and diff using the same video output.
