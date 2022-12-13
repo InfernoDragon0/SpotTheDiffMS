@@ -20,7 +20,3 @@ pip install pywin32
 - External Chat window does not matter
 - To exit, press Q when focused on any of the opencv windows
 - You can additionally change `TargetFPS` to the desired frame rate for the app, minimum 1.
-
-### References
-- Adapted for colored image diff + video capture and diff using the same video output.
-- Some snippets of code for image diff from repo https://github.com/kostasthanos/Spot-The-Differences
