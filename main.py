@@ -12,6 +12,8 @@ w = 1366
 h = 768
 mouseX,mouseY = 0,0
 
+targetFPS = 30 #change this to change the FPS
+
 #set the start and end location of each image in game
 image1Xstart,image1Ystart = 233,126
 image1Xend,image1Yend = 682,575
@@ -59,7 +61,7 @@ cDC.SelectObject(dataBitMap)
 
 while True:
     #get the image from the window
-    time.sleep(0.066)
+    timestart = time.time()
     cDC.BitBlt((0,0),(w, h) , dcObj, (0,0), win32con.SRCCOPY)
 
     #make CV image
@@ -108,6 +110,9 @@ while True:
     # cv2.imshow("right", image2)
     # cv2.imshow("image", datashow)
     cv2.imshow("final", datashowCropped)
+    timend = time.time()
+    if (1/targetFPS - (timend-timestart) > 0):
+        time.sleep(1/targetFPS - (timend-timestart))
 
     #end when Q is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
