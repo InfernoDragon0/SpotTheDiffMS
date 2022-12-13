@@ -81,11 +81,7 @@ while True:
     #cv2.imshow("diff(img1, img2)", diff)
     diff = cv2.cvtColor(diff, cv2.COLOR_RGBA2GRAY) #uncolor the difference
 
-    #threshold the difference
-    # thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_OTSU)[1]
-    # cv2.imshow("Threshold", thresh)
-
-    #dilate the threshold
+    #dilate the difference
     kernel = numpy.ones((5,5), numpy.uint8) 
     dilate = cv2.dilate(diff, kernel, iterations=2) 
     cv2.imshow("Dilate", dilate)
@@ -96,21 +92,16 @@ while True:
         if cv2.contourArea(contour) > 30:
             # Calculate bounding box around contour
             xx, yy, ww, hh = cv2.boundingRect(contour)
-            # Draw rectangle - bounding box on both images
             cv2.rectangle(datashowCropped, (xx, yy), (xx+ww, yy+hh), (0,255,255), 3)
-            # cv2.rectangle(datashowCropped, (xx, yy), (xx+ww, yy+hh), (0,0,255), 2)
-    #do comparison
-    #cv2.rectangle(datashow,(image1Xstart,image1Ystart),(image1Xend,image1Yend),(0,255,0),2)
-
-    #red rectangle
-    #cv2.rectangle(datashow,(image2Xstart,image2Ystart),(image2Xend,image2Yend),(0,0,255),2)
 
     #show results
     # cv2.imshow("left", image1)
     # cv2.imshow("right", image2)
     # cv2.imshow("image", datashow)
     cv2.imshow("final", datashowCropped)
+
     timend = time.time()
+    
     if (1/targetFPS - (timend-timestart) > 0):
         time.sleep(1/targetFPS - (timend-timestart))
 
